@@ -15,10 +15,6 @@ namespace Todo.EntityModelMappers.TodoLists
             var items = todoList.Items
                 .Select(TodoItemSummaryViewmodelFactory.Create);
             if (hideCompleted) items = items.Where(i => !i.IsDone);
-            if (sortDirection == TodoListDetailViewmodel.SortDirection.Asc)
-            {
-                items = items.OrderBy(i => i.Importance);
-            }
             return new TodoListDetailViewmodel(
                 todoList.TodoListId, todoList.Title, items.ToList(), orderBy: sortDirection);
         }

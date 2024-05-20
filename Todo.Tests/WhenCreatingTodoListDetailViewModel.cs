@@ -27,25 +27,6 @@ namespace Todo.Tests
             // Assert
             viewModel.Items.Select(i => i.Rank).Should().BeEquivalentTo(new List<int> { 1, 2, 3 });
         }
-
-        [Fact]
-        public void It_orders_by_ascending_importance()
-        {
-            // Arrange
-            var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
-                .WithItem("bread", Importance.High)
-                .WithItem("wash car", Importance.Low)
-                .WithItem("rubbish", Importance.Medium)
-                .Build();
-
-            // Act
-            var viewModel = TodoListDetailViewmodelFactory.Create(
-                todoList, sortDirection: TodoListDetailViewmodel.SortDirection.Asc);
-
-            // Assert
-            var expectedImportance = new List<Importance> { Importance.High, Importance.Medium, Importance.Low };
-            Assert.Equal(expectedImportance, viewModel.Items.Select(i => i.Importance));
-        }
         
         [Theory]
         [InlineData(TodoListDetailViewmodel.SortDirection.Asc)]

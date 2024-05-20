@@ -11,6 +11,8 @@ namespace Todo.Models.TodoLists
         public ICollection<TodoItemSummaryViewmodel> Items { get; }
         [DisplayName("Hide Completed?")]
         public bool HideCompleted { get; }
+        public SortProperty SortBy { get; }
+        public SortDirection OrderBy { get; }
 
         public TodoListDetailViewmodel(
             int todoListId, string title, ICollection<TodoItemSummaryViewmodel> items, bool hideCompleted = false)
@@ -19,6 +21,18 @@ namespace Todo.Models.TodoLists
             TodoListId = todoListId;
             Title = title;
             HideCompleted = hideCompleted;
+        }
+        
+        public enum SortProperty
+        {
+            Importance,
+            Rank
+        }
+        
+        public enum SortDirection
+        {
+            Asc,
+            Desc,
         }
     }
 }

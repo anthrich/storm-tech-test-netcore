@@ -34,11 +34,11 @@ namespace Todo.Controllers
         public IActionResult Detail(
             int todoListId,
             bool hideCompleted = false,
-            TodoListDetailViewmodel.SortDirection order = TodoListDetailViewmodel.SortDirection.Asc,
+            TodoListDetailViewmodel.Ordering order = TodoListDetailViewmodel.Ordering.Asc,
             TodoListDetailViewmodel.SortProperty orderBy = TodoListDetailViewmodel.SortProperty.Importance)
         {
             var todoList = dbContext.SingleTodoList(todoListId);
-            var viewmodel = TodoListDetailViewmodelFactory.Create(todoList, hideCompleted);
+            var viewmodel = TodoListDetailViewmodelFactory.Create(todoList, hideCompleted, order);
             return View(viewmodel);
         }
 

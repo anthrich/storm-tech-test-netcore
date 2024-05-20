@@ -29,22 +29,33 @@ namespace Todo.Tests
         }
         
         [Theory]
-        [InlineData(TodoListDetailViewmodel.SortDirection.Asc)]
-        [InlineData(TodoListDetailViewmodel.SortDirection.Desc)]
-        public void It_sets_sort_direction(TodoListDetailViewmodel.SortDirection sortDirection)
+        [InlineData(TodoListDetailViewmodel.Ordering.Asc)]
+        [InlineData(TodoListDetailViewmodel.Ordering.Desc)]
+        public void It_sets_sort_direction(TodoListDetailViewmodel.Ordering ordering)
         {
             // Arrange
-            var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
-                .WithItem("bread", Importance.High)
-                .WithItem("wash car", Importance.Low)
-                .WithItem("rubbish", Importance.Medium)
-                .Build();
+            var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping").Build();
 
             // Act
-            var viewModel = TodoListDetailViewmodelFactory.Create(todoList, sortDirection: sortDirection);
+            var viewModel = TodoListDetailViewmodelFactory.Create(todoList, order: ordering);
 
             // Assert
-            Assert.Equal(viewModel.OrderBy, sortDirection);
+            Assert.Equal(viewModel.Order, ordering);
+        }
+        
+        [Theory]
+        [InlineData(TodoListDetailViewmodel.SortProperty.Importance)]
+        [InlineData(TodoListDetailViewmodel.SortProperty.Rank)]
+        public void It_sets_sort_property(TodoListDetailViewmodel.SortProperty sortProperty)
+        {
+            // Arrange
+            var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping").Build();
+
+            // Act
+            var viewModel = TodoListDetailViewmodelFactory.Create(todoList, orderBy: sortProperty);
+
+            // Assert
+            Assert.Equal(viewModel.OrderBy, sortProperty);
         }
     }
 }

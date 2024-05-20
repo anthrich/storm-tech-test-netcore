@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using Microsoft.Data.SqlClient;
 using Todo.Models.TodoItems;
 
 namespace Todo.Models.TodoLists
@@ -15,7 +16,11 @@ namespace Todo.Models.TodoLists
         public SortDirection OrderBy { get; }
 
         public TodoListDetailViewmodel(
-            int todoListId, string title, ICollection<TodoItemSummaryViewmodel> items, bool hideCompleted = false)
+            int todoListId,
+            string title,
+            ICollection<TodoItemSummaryViewmodel> items,
+            bool hideCompleted = false,
+            SortOrder sortBy = SortOrder.Ascending)
         {
             Items = items;
             TodoListId = todoListId;

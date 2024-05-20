@@ -9,9 +9,9 @@ namespace Todo.Data.Entities {
         public IdentityUser ResponsibleParty { get; set; }
         public bool IsDone { get; set; }
         public Importance Importance { get; set; }
-
         public int TodoListId { get; set; }
         public TodoList TodoList { get; set; }
+        public int Rank { get; set; }
 
         protected TodoItem() { }
 

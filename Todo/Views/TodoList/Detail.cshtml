@@ -17,7 +17,12 @@
             <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
                 <strong>Add New Item</strong>
             </a>
-            <input type="checkbox" asp-/>
+            
+            <form method="get" asp-action="Detail">
+                <input type="hidden" name="todoListId" value="@Model.TodoListId" />
+                <label asp-for="HideCompleted"></label>
+                <input type="checkbox" asp-for="HideCompleted" onchange="this.form.submit()" />
+            </form>
         </li>
 
         @foreach (var item in Model.Items.OrderBy(i => i.Importance))

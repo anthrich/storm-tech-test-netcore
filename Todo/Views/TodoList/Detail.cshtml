@@ -1,5 +1,6 @@
 ﻿@using Todo.Controllers
 @using Todo.Data.Entities
+@using Todo.Models.TodoLists
 @using Todo.Services
 @model Todo.Models.TodoLists.TodoListDetailViewmodel
 
@@ -24,7 +25,35 @@
                 <input type="checkbox" asp-for="HideCompleted" onchange="this.form.submit()" />
             </form>
         </li>
-
+        
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    @if (Model.OrderBy == TodoListDetailViewmodel.SortProperty.Importance)
+                    {
+                        if (Model.Order == TodoListDetailViewmodel.Ordering.Asc)
+                        {
+                            <a asp-action="Detail" 
+                               asp-route-orderBy="Importance"
+                               asp-route-order="Desc"
+                               asp-route-todoListId="@Model.TodoListId"
+                               asp-route-hideCompleted="@Model.HideCompleted">☝️</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Detail"
+                               asp-route-orderBy="Importance"
+                               asp-route-order="Asc"
+                               asp-route-todoListId="@Model.TodoListId"
+                               asp-route-hideCompleted="@Model.HideCompleted">👇</a>
+                        }
+                    }
+                </div>
+            </div>
+        </li>
+        
         @foreach (var item in Model.Items.OrderBy(i => i.Importance))
         {
             string contextualClass;
@@ -44,7 +73,8 @@
             <li class="list-group-item @contextualClass">
                 <div class="row">
                     <div class="col-md-1">@item.Rank</div>
-                    <div class="col-md-7">
+                    <div class="col-md-2">@item.Importance</div>
+                    <div class="col-md-5">
                         <a asp-action="Edit" asp-controller="TodoItem" asp-route-todoItemId="@item.TodoItemId">
 
                             @if (item.IsDone)

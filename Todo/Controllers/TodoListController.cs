@@ -38,7 +38,7 @@ namespace Todo.Controllers
             TodoListDetailViewmodel.SortProperty orderBy = TodoListDetailViewmodel.SortProperty.Importance)
         {
             var todoList = dbContext.SingleTodoList(todoListId);
-            var viewmodel = TodoListDetailViewmodelFactory.Create(todoList, hideCompleted, order);
+            var viewmodel = TodoListDetailViewmodelFactory.Create(todoList, hideCompleted, order, orderBy);
             return View(viewmodel);
         }
 

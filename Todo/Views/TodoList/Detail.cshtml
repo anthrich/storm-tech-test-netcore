@@ -17,6 +17,7 @@
             <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
                 <strong>Add New Item</strong>
             </a>
+            <input type="checkbox" asp-/>
         </li>
 
         @foreach (var item in Model.Items.OrderBy(i => i.Importance))

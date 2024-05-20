@@ -29,62 +29,22 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-md-1">
-                    @if (Model.OrderBy == TodoListDetailViewmodel.SortProperty.Rank)
-                    {
-                        if (Model.Order == TodoListDetailViewmodel.Ordering.Asc)
+                    @Html.Partial(
+                        "Sorter",
+                        Model,
+                        new ViewDataDictionary(ViewData)
                         {
-                            <a asp-action="Detail"
-                               asp-route-orderBy="Rank"
-                               asp-route-order="Desc"
-                               asp-route-todoListId="@Model.TodoListId"
-                               asp-route-hideCompleted="@Model.HideCompleted">☝️</a>
-                        }
-                        else
-                        {
-                            <a asp-action="Detail"
-                               asp-route-orderBy="Rank"
-                               asp-route-order="Asc"
-                               asp-route-todoListId="@Model.TodoListId"
-                               asp-route-hideCompleted="@Model.HideCompleted">👇</a>
-                        }
-                    }
-                    else
-                    {
-                        <a asp-action="Detail"
-                           asp-route-orderBy="Rank"
-                           asp-route-order="Asc"
-                           asp-route-todoListId="@Model.TodoListId"
-                           asp-route-hideCompleted="@Model.HideCompleted">🔻</a>
-                    }
+                            {"RelevantProperty", TodoListDetailViewmodel.SortProperty.Rank}
+                        })
                 </div>
                 <div class="col-md-2">
-                    @if (Model.OrderBy == TodoListDetailViewmodel.SortProperty.Importance)
-                    {
-                        if (Model.Order == TodoListDetailViewmodel.Ordering.Asc)
+                    @Html.Partial(
+                        "Sorter",
+                        Model,
+                        new ViewDataDictionary(ViewData)
                         {
-                            <a asp-action="Detail" 
-                               asp-route-orderBy="Importance"
-                               asp-route-order="Desc"
-                               asp-route-todoListId="@Model.TodoListId"
-                               asp-route-hideCompleted="@Model.HideCompleted">☝️</a>
-                        }
-                        else
-                        {
-                            <a asp-action="Detail"
-                               asp-route-orderBy="Importance"
-                               asp-route-order="Asc"
-                               asp-route-todoListId="@Model.TodoListId"
-                               asp-route-hideCompleted="@Model.HideCompleted">👇</a>
-                        }
-                    }
-                    else
-                    {
-                        <a asp-action="Detail"
-                           asp-route-orderBy="Importance"
-                           asp-route-order="Asc"
-                           asp-route-todoListId="@Model.TodoListId"
-                           asp-route-hideCompleted="@Model.HideCompleted">🔻</a>
-                    }
+                            {"RelevantProperty", TodoListDetailViewmodel.SortProperty.Importance}
+                        })
                 </div>
             </div>
         </li>
@@ -126,9 +86,7 @@
                     <div class="col-md-4 text-right">
                         <small>
                             @item.ResponsibleParty.UserName
-
                             <img src="https://www.gravatar.com/avatar/@Gravatar.GetHash(item.ResponsibleParty.Email)?s=30"/>
-
                         </small>
                     </div>
                 </div>

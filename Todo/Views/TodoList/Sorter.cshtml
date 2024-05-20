@@ -1,0 +1,34 @@
+﻿@using Todo.Models.TodoLists
+@model Todo.Models.TodoLists.TodoListDetailViewmodel
+@{
+    var relevantProperty = ViewData["RelevantProperty"]
+        as TodoListDetailViewmodel.SortProperty? ?? TodoListDetailViewmodel.SortProperty.Importance;
+}
+
+@if (Model.OrderBy == relevantProperty)
+{
+    if (Model.Order == TodoListDetailViewmodel.Ordering.Asc)
+    {
+        <a asp-action="Detail"
+           asp-route-orderBy="@relevantProperty.ToString()"
+           asp-route-order="Desc"
+           asp-route-todoListId="@Model.TodoListId"
+           asp-route-hideCompleted="@Model.HideCompleted">☝️</a>
+    }
+    else
+    {
+        <a asp-action="Detail"
+           asp-route-orderBy="@relevantProperty.ToString()"
+           asp-route-order="Asc"
+           asp-route-todoListId="@Model.TodoListId"
+           asp-route-hideCompleted="@Model.HideCompleted">👇</a>
+    }
+}
+else
+{
+    <a asp-action="Detail"
+       asp-route-orderBy="@relevantProperty.ToString()"
+       asp-route-order="Asc"
+       asp-route-todoListId="@Model.TodoListId"
+       asp-route-hideCompleted="@Model.HideCompleted">🔻</a>
+}

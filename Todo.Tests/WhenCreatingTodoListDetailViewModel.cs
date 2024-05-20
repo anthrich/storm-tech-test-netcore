@@ -47,8 +47,10 @@ namespace Todo.Tests
             Assert.Equal(expectedImportance, viewModel.Items.Select(i => i.Importance));
         }
         
-        [Fact]
-        public void It_sets_sort_direction()
+        [Theory]
+        [InlineData(TodoListDetailViewmodel.SortDirection.Asc)]
+        [InlineData(TodoListDetailViewmodel.SortDirection.Desc)]
+        public void It_sets_sort_direction(TodoListDetailViewmodel.SortDirection sortDirection)
         {
             // Arrange
             var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
@@ -58,11 +60,10 @@ namespace Todo.Tests
                 .Build();
 
             // Act
-            var viewModel = TodoListDetailViewmodelFactory.Create(
-                todoList, sortDirection: TodoListDetailViewmodel.SortDirection.Asc);
+            var viewModel = TodoListDetailViewmodelFactory.Create(todoList, sortDirection: sortDirection);
 
             // Assert
-            Assert.Equal(viewModel.OrderBy, TodoListDetailViewmodel.SortDirection.Asc);
+            Assert.Equal(viewModel.OrderBy, sortDirection);
         }
     }
 }

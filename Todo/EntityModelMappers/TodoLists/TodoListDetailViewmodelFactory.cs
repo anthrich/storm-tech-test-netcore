@@ -19,7 +19,8 @@ namespace Todo.EntityModelMappers.TodoLists
             {
                 items = items.OrderBy(i => i.Importance);
             }
-            return new TodoListDetailViewmodel(todoList.TodoListId, todoList.Title, items.ToList());
+            return new TodoListDetailViewmodel(
+                todoList.TodoListId, todoList.Title, items.ToList(), orderBy: sortDirection);
         }
     }
 }

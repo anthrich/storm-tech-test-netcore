@@ -20,12 +20,13 @@ namespace Todo.Models.TodoLists
             string title,
             ICollection<TodoItemSummaryViewmodel> items,
             bool hideCompleted = false,
-            SortOrder sortBy = SortOrder.Ascending)
+            SortDirection orderBy = SortDirection.Asc)
         {
             Items = items;
             TodoListId = todoListId;
             Title = title;
             HideCompleted = hideCompleted;
+            OrderBy = orderBy;
         }
         
         public enum SortProperty

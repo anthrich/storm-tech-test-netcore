@@ -34,6 +34,7 @@ namespace Todo.Tests
             todoItems.ToList().ForEach(tlItm =>
             {
                 todoList.Items.Add(tlItm);
+                tlItm.ResponsibleParty = owner;
                 tlItm.TodoList = todoList;
             });
             return todoList;

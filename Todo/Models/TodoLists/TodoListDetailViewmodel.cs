@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using Microsoft.Data.SqlClient;
+using System.Linq;
 using Todo.Models.TodoItems;
 
 namespace Todo.Models.TodoLists
@@ -14,6 +15,20 @@ namespace Todo.Models.TodoLists
         public bool HideCompleted { get; }
         public SortProperty OrderBy { get; }
         public Ordering Order { get; }
+
+        public List<TodoItemSummaryViewmodel> GetItems()
+        {
+            return OrderBy switch
+            {
+                SortProperty.Importance => Order == Ordering.Asc
+                    ? Items.OrderBy(i => i.Importance).ToList()
+                    : Items.OrderByDescending(i => i.Importance).ToList(),
+                SortProperty.Rank => Order == Ordering.Asc
+                    ? Items.OrderBy(i => i.Rank).ToList()
+                    : Items.OrderByDescending(i => i.Rank).ToList(),
+                _ => throw new Exception("Missing sort property case")
+            };
+        }
 
         public TodoListDetailViewmodel(
             int todoListId,

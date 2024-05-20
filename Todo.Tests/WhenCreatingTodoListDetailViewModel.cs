@@ -11,21 +11,83 @@ namespace Todo.Tests
 {
     public class WhenCreatingTodoListDetailViewModel
     {
+        private static TodoList TodoList
+        {
+            get
+            {
+                var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
+                    .WithItem("bread", Importance.High)
+                    .WithItem("wash car", Importance.Low)
+                    .WithItem("rubbish", Importance.Medium)
+                    .Build();
+                return todoList;
+            }
+        }
+
         [Fact]
         public void It_includes_item_ranks()
         {
-            // Arrange
-            var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
-                .WithItem("bread", Importance.High)
-                .WithItem("wash car", Importance.Low)
-                .WithItem("rubbish", Importance.Medium)
-                .Build();
-
             // Act
-            var viewModel = TodoListDetailViewmodelFactory.Create(todoList);
+            var viewModel = TodoListDetailViewmodelFactory.Create(TodoList);
 
             // Assert
             viewModel.Items.Select(i => i.Rank).Should().BeEquivalentTo(new List<int> { 1, 2, 3 });
+        }
+
+        [Fact]
+        public void It_orders_by_importance_ascending()
+        {
+            // Act
+            var viewModel = TodoListDetailViewmodelFactory.Create(
+                TodoList,
+                order: TodoListDetailViewmodel.Ordering.Asc,
+                orderBy: TodoListDetailViewmodel.SortProperty.Importance);
+
+            // Assert
+            var itemOrder = viewModel.GetItems().Select(i => i.Importance);
+            itemOrder.Should().Equal(Importance.High, Importance.Medium, Importance.Low);
+        }
+        
+        [Fact]
+        public void It_orders_by_importance_descending()
+        {
+            // Act
+            var viewModel = TodoListDetailViewmodelFactory.Create(
+                TodoList,
+                order: TodoListDetailViewmodel.Ordering.Desc,
+                orderBy: TodoListDetailViewmodel.SortProperty.Importance);
+
+            // Assert
+            var itemOrder = viewModel.GetItems().Select(i => i.Importance);
+            itemOrder.Should().Equal(Importance.Low, Importance.Medium, Importance.High);
+        }
+        
+        [Fact]
+        public void It_orders_by_rank_ascending()
+        {
+            // Act
+            var viewModel = TodoListDetailViewmodelFactory.Create(
+                TodoList,
+                order: TodoListDetailViewmodel.Ordering.Asc,
+                orderBy: TodoListDetailViewmodel.SortProperty.Rank);
+
+            // Assert
+            var itemOrder = viewModel.GetItems().Select(i => i.Rank);
+            itemOrder.Should().Equal(1, 2, 3);
+        }
+        
+        [Fact]
+        public void It_orders_by_rank_descending()
+        {
+            // Act
+            var viewModel = TodoListDetailViewmodelFactory.Create(
+                TodoList,
+                order: TodoListDetailViewmodel.Ordering.Desc,
+                orderBy: TodoListDetailViewmodel.SortProperty.Rank);
+
+            // Assert
+            var itemOrder = viewModel.GetItems().Select(i => i.Rank);
+            itemOrder.Should().Equal(3, 2, 1);
         }
         
         [Theory]

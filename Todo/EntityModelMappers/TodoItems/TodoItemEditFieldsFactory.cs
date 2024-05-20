@@ -25,6 +25,7 @@ namespace Todo.EntityModelMappers.TodoItems
             dest.IsDone = src.IsDone;
             dest.ResponsiblePartyId = src.ResponsiblePartyId;
             dest.Importance = src.Importance;
+            dest.Rank = src.Rank;
         }
     }
 }

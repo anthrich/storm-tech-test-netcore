@@ -12,6 +12,7 @@ namespace Todo.Models.TodoItems
         public bool IsDone { get; set; }
         [DisplayName("Owner")] public string ResponsiblePartyId { get; set; }
         public Importance Importance { get; set; }
+        public int Rank { get; set; }
 
         public TodoItemEditFields() { }
 
@@ -22,7 +23,8 @@ namespace Todo.Models.TodoItems
             string title,
             bool isDone,
             string responsiblePartyId,
-            Importance importance)
+            Importance importance,
+            int rank = 0)
         {
             TodoListId = todoListId;
             TodoListTitle = todoListTitle;
@@ -31,6 +33,7 @@ namespace Todo.Models.TodoItems
             IsDone = isDone;
             ResponsiblePartyId = responsiblePartyId;
             Importance = importance;
+            Rank = rank;
         }
     }
 }

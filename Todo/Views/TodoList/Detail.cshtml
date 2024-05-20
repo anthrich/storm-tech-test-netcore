@@ -29,6 +29,33 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-md-1">
+                    @if (Model.OrderBy == TodoListDetailViewmodel.SortProperty.Rank)
+                    {
+                        if (Model.Order == TodoListDetailViewmodel.Ordering.Asc)
+                        {
+                            <a asp-action="Detail"
+                               asp-route-orderBy="Rank"
+                               asp-route-order="Desc"
+                               asp-route-todoListId="@Model.TodoListId"
+                               asp-route-hideCompleted="@Model.HideCompleted">☝️</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Detail"
+                               asp-route-orderBy="Rank"
+                               asp-route-order="Asc"
+                               asp-route-todoListId="@Model.TodoListId"
+                               asp-route-hideCompleted="@Model.HideCompleted">👇</a>
+                        }
+                    }
+                    else
+                    {
+                        <a asp-action="Detail"
+                           asp-route-orderBy="Rank"
+                           asp-route-order="Asc"
+                           asp-route-todoListId="@Model.TodoListId"
+                           asp-route-hideCompleted="@Model.HideCompleted">🔻</a>
+                    }
                 </div>
                 <div class="col-md-2">
                     @if (Model.OrderBy == TodoListDetailViewmodel.SortProperty.Importance)
@@ -49,6 +76,14 @@
                                asp-route-todoListId="@Model.TodoListId"
                                asp-route-hideCompleted="@Model.HideCompleted">👇</a>
                         }
+                    }
+                    else
+                    {
+                        <a asp-action="Detail"
+                           asp-route-orderBy="Importance"
+                           asp-route-order="Asc"
+                           asp-route-todoListId="@Model.TodoListId"
+                           asp-route-hideCompleted="@Model.HideCompleted">🔻</a>
                     }
                 </div>
             </div>
